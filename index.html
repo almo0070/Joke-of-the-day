@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hybrid 8</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="./main.css">
+</head>
+<body>
+    <h1>Joke of the day</h1>
+    <div id="output">
+        
+    </div>    
+    <script>
+        //let datafile1 = fetch('https://sv443.net/jokeapi/category/Programming')
+        let datafile1 = fetch('https://sv443.net/jokeapi/category/Programming?blacklistFlags=nsfwreligiouspolitical')
+            .then((result)=>{
+                return result.json();
+            })
+            .then( (jsonData) =>{
+                console.log(jsonData);
+                let pIntro = document.createElement('p');
+                let pJoke = document.createElement('p');
+                let pJoke2 = document.createElement('p');
+                let pID = document.createElement('p');
+                let pCategory = document.createElement('p');
+                pCategory.classList.add('pInfo2');
+                pID.classList.add('pInfo2');
+                pIntro.classList.add('pInfo2');
+                pJoke.classList.add('pJoke');
+                pJoke2.classList.add('pInfo1');
+
+                if (jsonData.type = "twopart")
+                {
+                    pID.textContent = " Joke#: "+jsonData.id;
+                    pIntro.textContent =" Type: "+jsonData.type;
+                    pCategory.textContent =" Category: "+jsonData.category;
+                    pJoke.textContent = "- "+jsonData.setup;
+                    pJoke2.textContent = "- "+jsonData.delivery;
+                }else{
+                    pID.textContent = " Joke#: "+jsonData.id;
+                    pIntro.textContent =" Type: "+jsonData.type;
+                    pCategory.textContent =" Category: "+jsonData.category;
+                    pJoke.textContent = "- "+jsonData.joke;
+                }
+                document.getElementById('output').appendChild(pID);
+                document.getElementById('output').appendChild(pIntro);
+                document.getElementById('output').appendChild(pCategory);
+                document.getElementById('output').appendChild(pJoke);
+                document.getElementById('output').appendChild(pJoke2);
+
+            })
+            .catch((result)=>{
+                console.log(result.json());
+            })
+        
+        
+    </script>
+</body>
+</html>
